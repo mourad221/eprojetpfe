@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public Optional<User> findUserbyId(Integer id) {
-        return userRepository.findById(id);
+    public User findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
     }
 }
