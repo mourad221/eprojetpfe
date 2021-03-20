@@ -4,10 +4,10 @@ package com.groupe.eprojet.controllers;
 import com.groupe.eprojet.models.User;
 import com.groupe.eprojet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,7 +18,16 @@ public class UserController {
 
    @GetMapping(value = "/user/{id}")
     public Optional<User> findUserById(@PathVariable  Integer id){
-       return  userService.findUserbyId(id);
+       return  userService.findUserByID(id);
+   }
+   @GetMapping(value = "/users/")
+    public List<User> findUsers(){
+       return userService.findUsers();
+   }
+
+   @PostMapping(value = "/users/add")
+    public void adduser(@RequestBody User user){
+       userService.addUser(user);
    }
 
 

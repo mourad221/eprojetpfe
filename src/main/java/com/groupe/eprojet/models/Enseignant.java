@@ -12,10 +12,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Enseignant   {
 
     @Id
@@ -33,4 +33,62 @@ public class Enseignant   {
     @OneToMany(mappedBy = "enseignant")
     private List<Commentaire> commentaireList;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getFaculte() {
+        return faculte;
+    }
+
+    public void setFaculte(String faculte) {
+        this.faculte = faculte;
+    }
+
+    @JsonBackReference
+    public Entreprise getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    @JsonManagedReference
+    public List<Projet> getProjetList() {
+        return projetList;
+    }
+
+    public void setProjetList(List<Projet> projetList) {
+        this.projetList = projetList;
+    }
+
+    @JsonManagedReference
+    public List<Commentaire> getCommentaireList() {
+        return commentaireList;
+    }
+
+    public void setCommentaireList(List<Commentaire> commentaireList) {
+        this.commentaireList = commentaireList;
+    }
 }

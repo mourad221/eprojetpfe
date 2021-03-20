@@ -12,10 +12,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Commentaire {
 
     @Id
@@ -43,8 +43,64 @@ public class Commentaire {
 
     @ManyToOne
     @JoinColumn(insertable = false,updatable = false)
-    @JsonBackReference
     private Etudiant etudiant;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDateComentarire() {
+        return dateComentarire;
+    }
+
+    public void setDateComentarire(Date dateComentarire) {
+        this.dateComentarire = dateComentarire;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    @JsonBackReference
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
+    public Integer getProjet_id() {
+        return projet_id;
+    }
+
+    public void setProjet_id(Integer projet_id) {
+        this.projet_id = projet_id;
+    }
+
+    @JsonBackReference
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+
+    @JsonBackReference
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
 }

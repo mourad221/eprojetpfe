@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idDocument")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idDocument")
 public class Document {
 
     @Id
@@ -28,4 +28,44 @@ public class Document {
     private Projet projet;
     private Integer projet_id;
 
+    public Integer getIdDocument() {
+        return idDocument;
+    }
+
+    public void setIdDocument(Integer idDocument) {
+        this.idDocument = idDocument;
+    }
+
+    public String getTitreDocument() {
+        return titreDocument;
+    }
+
+    public void setTitreDocument(String titreDocument) {
+        this.titreDocument = titreDocument;
+    }
+
+    public String getTypeDocument() {
+        return typeDocument;
+    }
+
+    public void setTypeDocument(String typeDocument) {
+        this.typeDocument = typeDocument;
+    }
+
+    @JsonBackReference
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
+    public Integer getProjet_id() {
+        return projet_id;
+    }
+
+    public void setProjet_id(Integer projet_id) {
+        this.projet_id = projet_id;
+    }
 }

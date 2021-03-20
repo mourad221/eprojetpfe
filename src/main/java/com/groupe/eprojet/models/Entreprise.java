@@ -12,11 +12,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitialize","handler","enseignantList"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idEntreprise")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idEntreprise")
 public class Entreprise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,5 +31,53 @@ public class Entreprise {
     @OneToMany(mappedBy = "entreprise")
     private List<Projet> projetList;
 
+    public Integer getIdEntreprise() {
+        return idEntreprise;
+    }
 
+    public void setIdEntreprise(Integer idEntreprise) {
+        this.idEntreprise = idEntreprise;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getNumeroTel() {
+        return numeroTel;
+    }
+
+    public void setNumeroTel(String numeroTel) {
+        this.numeroTel = numeroTel;
+    }
+
+    public String getDomaineActivite() {
+        return domaineActivite;
+    }
+
+    public void setDomaineActivite(String domaineActivite) {
+        this.domaineActivite = domaineActivite;
+    }
+
+    @JsonManagedReference
+    public List<Enseignant> getEnseignantList() {
+        return enseignantList;
+    }
+
+    public void setEnseignantList(List<Enseignant> enseignantList) {
+        this.enseignantList = enseignantList;
+    }
+
+    @JsonManagedReference
+    public List<Projet> getProjetList() {
+        return projetList;
+    }
+
+    public void setProjetList(List<Projet> projetList) {
+        this.projetList = projetList;
+    }
 }
