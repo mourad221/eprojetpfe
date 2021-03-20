@@ -1,10 +1,7 @@
 package com.groupe.eprojet.models;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -68,6 +65,7 @@ public class Projet {
     @ManyToMany(mappedBy = "projets")
     private List <Etudiant> etudiants ;
 
+
     public Integer getId() {
         return id;
     }
@@ -84,6 +82,7 @@ public class Projet {
         this.titre = titre;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -91,6 +90,7 @@ public class Projet {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public Date getDateDebut() {
         return dateDebut;
