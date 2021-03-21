@@ -9,20 +9,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 //@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitialize","handler","enseignantList"})
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idEntreprise")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idEntreprise")
 public class Entreprise {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idEntreprise;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le prénom est très court ou très long")
     private String nom;
+
+    @Pattern(regexp = "(^$|[0-9]{10})" )
     private String numeroTel;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le domaine est très court ou très long")
     private String domaineActivite;
 
     @OneToMany(mappedBy = "entreprise")
@@ -63,7 +72,7 @@ public class Entreprise {
         this.domaineActivite = domaineActivite;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Enseignant> getEnseignantList() {
         return enseignantList;
     }
@@ -72,7 +81,7 @@ public class Entreprise {
         this.enseignantList = enseignantList;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Projet> getProjetList() {
         return projetList;
     }

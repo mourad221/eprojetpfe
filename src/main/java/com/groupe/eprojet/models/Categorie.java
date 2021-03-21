@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 //@Data
@@ -18,8 +19,10 @@ import javax.persistence.*;
 public class Categorie {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idCategorie;
-
+    @Column(nullable = false)
+    @Size(min =3, max = 45, message = "Le prénom est très court")
     private String domaine;
 
     @ManyToOne

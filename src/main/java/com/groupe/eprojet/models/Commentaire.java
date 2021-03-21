@@ -9,23 +9,27 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 //@Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Commentaire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",insertable = false,updatable = false)
+    @Column(name = "id",updatable = false)
     private int id ;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date dateComentarire ;
+    @Column(nullable = false,updatable = true)
+    @Size(min =3,max = 255 ,message = "Le commentaire ne doit pas dépasser 255 caractères")
     private String contenu;
+
 
     @ManyToOne
     @JoinColumn(name = "projet_id",insertable = false,updatable = false)
@@ -69,7 +73,7 @@ public class Commentaire {
         this.contenu = contenu;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Projet getProjet() {
         return projet;
     }
@@ -86,7 +90,7 @@ public class Commentaire {
         this.projet_id = projet_id;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Enseignant getEnseignant() {
         return enseignant;
     }
@@ -95,7 +99,7 @@ public class Commentaire {
         this.enseignant = enseignant;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Etudiant getEtudiant() {
         return etudiant;
     }

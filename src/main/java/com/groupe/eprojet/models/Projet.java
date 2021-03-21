@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,11 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "projet")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Projet {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(nullable = false,updatable = true)
@@ -35,6 +36,7 @@ public class Projet {
     private Date dateDebut;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future
     private Date dateFin;
 
     @ElementCollection
@@ -62,7 +64,11 @@ public class Projet {
     @OneToMany(mappedBy ="projet" ,cascade = CascadeType.ALL)
     private List<Commentaire> commentaireList;
 
-    @ManyToMany(mappedBy = "projets")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "etudiant_projets",
+            joinColumns = { @JoinColumn(name = "projets_id") },
+            inverseJoinColumns = { @JoinColumn(name = "etudiants_id") }
+    )
     private List <Etudiant> etudiants ;
 
 
@@ -125,7 +131,7 @@ public class Projet {
         this.preRequis = preRequis;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Enseignant getEnseignant() {
         return enseignant;
     }
@@ -134,7 +140,7 @@ public class Projet {
         this.enseignant = enseignant;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Entreprise getEntreprise() {
         return entreprise;
     }
@@ -143,7 +149,7 @@ public class Projet {
         this.entreprise = entreprise;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Categorie> getCategorieList() {
         return categorieList;
     }
@@ -152,7 +158,7 @@ public class Projet {
         this.categorieList = categorieList;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Document> getDocumentList() {
         return documentList;
     }
@@ -161,7 +167,7 @@ public class Projet {
         this.documentList = documentList;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Commentaire> getCommentaireList() {
         return commentaireList;
     }
@@ -170,7 +176,7 @@ public class Projet {
         this.commentaireList = commentaireList;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Etudiant> getEtudiants() {
         return etudiants;
     }

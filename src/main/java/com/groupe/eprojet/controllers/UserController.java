@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-   @GetMapping(value = "/user/{id}")
+   @GetMapping(value = "/users/{id}")
     public Optional<User> findUserById(@PathVariable  Integer id){
        return  userService.findUserByID(id);
    }
@@ -29,6 +29,9 @@ public class UserController {
     public void adduser(@RequestBody User user){
        userService.addUser(user);
    }
+
+   @DeleteMapping(value = "/users/delete/{id}")
+    public void deleteUser(@PathVariable Integer id) {userService.deleteUserById(id); }
 
 
 

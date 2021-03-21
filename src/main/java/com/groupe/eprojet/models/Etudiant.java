@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,17 +14,33 @@ import java.util.List;
 //@Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Etudiant {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le nom est très court")
     private String nom;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le prénom est très court")
     private String prenom;
+
+    @Column(nullable = false )
     private String filiere;
+
+    @Column(nullable = false )
     private String niveauEtude;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "etudiants")
     private List<Projet> projets;
 
     @OneToMany(mappedBy = "etudiant")
@@ -69,7 +86,7 @@ public class Etudiant {
         this.niveauEtude = niveauEtude;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public List<Projet> getProjets() {
         return projets;
     }
@@ -78,7 +95,7 @@ public class Etudiant {
         this.projets = projets;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Commentaire> getCommentaireList() {
         return commentaireList;
     }

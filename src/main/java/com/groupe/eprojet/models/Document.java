@@ -8,19 +8,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 //@Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idDocument")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "idDocument")
 public class Document {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_document")
     private Integer idDocument;
 
+    @Column(unique = true,nullable = false)
+    @Size(min = 3,max = 25)
     private String titreDocument;
+    @Column(nullable =false)
+    @Size(min = 3,max = 25)
     private String typeDocument;
 
     @ManyToOne
@@ -52,7 +58,7 @@ public class Document {
         this.typeDocument = typeDocument;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Projet getProjet() {
         return projet;
     }

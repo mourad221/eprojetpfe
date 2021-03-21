@@ -7,21 +7,33 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.assertj.core.internal.bytebuddy.implementation.bytecode.StackManipulation;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 //@Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Enseignant   {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le nom est très court")
     private String nom;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le prénom est très court")
     private String prenom;
+
+    @Column(nullable = false )
+    @Size(min =3, max = 45, message = "Le nom de faculté")
     private String faculte;
 
     @ManyToOne
@@ -65,7 +77,7 @@ public class Enseignant   {
         this.faculte = faculte;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Entreprise getEntreprise() {
         return entreprise;
     }
@@ -74,7 +86,7 @@ public class Enseignant   {
         this.entreprise = entreprise;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Projet> getProjetList() {
         return projetList;
     }
@@ -83,7 +95,7 @@ public class Enseignant   {
         this.projetList = projetList;
     }
 
-    @JsonManagedReference
+//    @JsonManagedReference
     public List<Commentaire> getCommentaireList() {
         return commentaireList;
     }
