@@ -20,7 +20,7 @@ public class PorjetController {
         return projetService.getAllProjet();
     }
 
-    //get an projet by id
+    //get a projet by id
     @GetMapping(value = "/projets/{id}")
     public Optional<Projet> getProjetById(@PathVariable Integer id){
         return  projetService.getProjetById(id);
