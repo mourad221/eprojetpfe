@@ -30,6 +30,9 @@ public class Projet {
     private String titre;
 
     @Column(nullable = false,updatable = true)
+    private String sujet;
+
+    @Column(nullable = false,updatable = true)
     private String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -88,6 +91,13 @@ public class Projet {
         this.titre = titre;
     }
 
+    public String getSujet() {
+        return sujet;
+    }
+
+    public void setSujet(String sujet) {
+        this.sujet = sujet;
+    }
 
     public String getDescription() {
         return description;
