@@ -32,7 +32,7 @@ public class Projet {
     @Column(nullable = false,updatable = true)
     private String sujet;
 
-    @Column(nullable = false,updatable = true)
+    @Column(nullable = false,updatable = true, columnDefinition = "TEXT")
     private String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -42,6 +42,15 @@ public class Projet {
     @Future
     private Date dateFin;
 
+    @Column(nullable = false,updatable = true)
+    private String niveau;
+
+    @Column(nullable = false,updatable = true)
+    private String filiere;
+
+    @Column(nullable = false,updatable = true)
+    private String videoUrl;
+
     @ElementCollection
     private List<String> keywords;
 
@@ -49,11 +58,11 @@ public class Projet {
     private List<String> preRequis;
     
     @ManyToOne
-    @JoinColumn(name = "enseignant_id",insertable = false,updatable = false)
+    @JoinColumn(name = "enseignant_id",insertable = true, updatable = true)
     private Enseignant enseignant;
 
     @ManyToOne
-    @JoinColumn(name = "entreprise_id_entreprise",insertable = false,updatable = false)
+    @JoinColumn(name = "entreprise_id_entreprise",insertable = true,updatable = true)
     private Entreprise entreprise;
 
 
@@ -124,6 +133,29 @@ public class Projet {
         this.dateFin = dateFin;
     }
 
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getFiliere() {
+        return filiere;
+    }
+
+    public void setFiliere(String filiere) {
+        this.filiere = filiere;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
 
     public List<String> getKeywords() {
         return keywords;
