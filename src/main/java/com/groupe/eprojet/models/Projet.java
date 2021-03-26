@@ -59,6 +59,7 @@ public class Projet {
     
     @ManyToOne
     @JoinColumn(name = "enseignant_id",insertable = true, updatable = true)
+    @JsonIgnoreProperties("projetList")
     private Enseignant enseignant;
 
     @ManyToOne
@@ -81,6 +82,7 @@ public class Projet {
             joinColumns = { @JoinColumn(name = "projets_id") },
             inverseJoinColumns = { @JoinColumn(name = "etudiants_id") }
     )
+    @JsonIgnoreProperties("projets")
     private List <Etudiant> etudiants ;
 
 

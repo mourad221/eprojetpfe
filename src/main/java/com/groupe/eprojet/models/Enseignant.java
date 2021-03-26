@@ -1,9 +1,6 @@
 package com.groupe.eprojet.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +37,7 @@ public class Enseignant   {
     private Entreprise entreprise ;
 
     @OneToMany(mappedBy = "enseignant")
+    @JsonIgnoreProperties("enseignant")
     private List<Projet> projetList;
 
     @OneToMany(mappedBy = "enseignant")

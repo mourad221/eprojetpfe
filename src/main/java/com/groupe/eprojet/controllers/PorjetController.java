@@ -5,6 +5,8 @@ import com.groupe.eprojet.models.Projet;
 import com.groupe.eprojet.services.EtudiantService;
 import com.groupe.eprojet.services.ProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,8 +25,11 @@ public class PorjetController {
 
     //Get all projet
     @GetMapping(value = "/projets/")
-    public List<Projet> getAllProjet(){
-        return projetService.getAllProjet();
+    public ResponseEntity getAllProjet(){
+
+        List<Projet> list = projetService.getAllProjet();
+
+        return new ResponseEntity(list, HttpStatus.OK);
     }
 
     //get a projet by id
@@ -34,6 +39,7 @@ public class PorjetController {
     }
 
     //add a new projet
+    @CrossOrigin(origins="http://localhost:8626")
     @PostMapping(value = "/projets/add")
     public void addProjet(@RequestBody Projet projet){
         projetService.addProjet(projet);
@@ -58,10 +64,15 @@ public class PorjetController {
 
         Projet projet = projetService.getProjetById(projetId).get();
         List<Etudiant> etudiantsList = new ArrayList<>();
+        List<Etudiant> previousList = projet.getEtudiants();
         for (int i = 0; i < etudiants.size(); i++) {
-            etudiantsList.add(etudiantService.getEtudiantById(etudiants.get(i)).get());
+            Etudiant etudiant = etudiantService.getEtudiantById(etudiants.get(i)).get();
+            if (etudiant != null && !previousList.contains(etudiant) ){
+                etudiantsList.add(etudiant);
+            }
         }
-        projet.setEtudiants(etudiantsList);
+        previousList.addAll(etudiantsList);
+        projet.setEtudiants(previousList);
         projetService.updateProjet(projet);
 
         return projet;

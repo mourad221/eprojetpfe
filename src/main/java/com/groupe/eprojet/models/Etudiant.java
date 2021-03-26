@@ -41,6 +41,7 @@ public class Etudiant {
                     CascadeType.MERGE
             },
             mappedBy = "etudiants")
+    @JsonIgnoreProperties("etudiants")
     private List<Projet> projets;
 
     @OneToMany(mappedBy = "etudiant")
